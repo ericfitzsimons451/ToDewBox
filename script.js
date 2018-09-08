@@ -1,7 +1,11 @@
 $('.title-input').on('keyup', enableSubmit);
 $('.body-input').on('keyup', enableSubmit);
 $('.save-btn').on('click', createCard);
-
+// $('.delete-btn').on('click', deleteIdea);
+// $('.upvote-btn').on('click', upVote);
+// $('.delete-btn').on('click', downVote);
+ $('.save-btn').prop('disabled', true);
+ 
 function Card(title, body, quality) {
     this.title = title;
     this.body = body;
@@ -11,13 +15,13 @@ function Card(title, body, quality) {
 
 function createCard(event) {
   event.preventDefault();
+  enableSubmit();
   var titleInput = $('.title-input').val();
   var bodyInput = $('.body-input').val();
   var newCard = new Card(titleInput, bodyInput, 'swill');
   createHTML(newCard.title, newCard.body, newCard.quality, newCard.id);
-  // clearInputs();
+  clearInputs();
   // storeIdea(newCard);
-  // enableSave();
 };
 
 
@@ -34,42 +38,27 @@ function createHTML(title , body , quality, id) {
             <hr>
             </div>`
   $('.bottom-box').prepend(newCard);
+  $('.save-btn').prop('disabled', true);
 };
 
 
 function enableSubmit(event) {
-    event.preventDefault();
     if ($('.title-input').val() === "" || $('.body-input').val() === "") {
        $('.save-btn').prop('disabled', false);
   };
 };  
 
+function clearInputs() {
+    $('.title-input').val('');
+    $('.body-input').val('');
+};
 
-            //  '<div id="' + id + '"class="card-container"><h2 class="title-of-card">'  
-            // + title +  '</h2>'
-            // + '<button class="delete-button"></button>'
-            // +'<p class="body-of-card">'
-            // + body + '</p>'
-            // + '<button class="upvote"></button>' 
-            // + '<button class="downvote"></button>' 
-            // + '<p class="quality">' + 'quality: ' + '<span class="qualityVariable">' + quality + '</span>' + '</p>'
-            // + '<hr>' 
-            // + '</div>';
 // };
-
-
-function cardObject() {
-    return {
-        title: $('.title-input').val(),
-        body: $('.body-input').val(),
-        quality: qualityVariable
-    };
-}
 
 // $.each(localStorage, function(key) {
 //     var cardData = JSON.parse(this);
 //     numCards++;
-//     $( ".bottom-box" ).prepend(newCard(key, cardData.title, cardData.body, cardData.quality));
+// //     $( ".bottom-box" ).prepend(newCard(key, cardData.title, cardData.body, cardData.quality));
 // });
 
 // var localStoreCard = function() {
