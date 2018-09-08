@@ -1,12 +1,14 @@
 body {
     box-sizing: border-box;
     margin: 0;
+    font-family: 'Open Sans', sans-serif;
 }
 
+span {
+    color: #6d6e71;
+}
 .container {
-    display: flex;
     flex-direction: column;
-    font-family: 'Roboto Slab', serif;
 }
 
 .top-box {
@@ -20,7 +22,8 @@ body {
 h1{
     color: #6d6e71;
     display: inline-block;
-    font-size: 275%;
+    font-family: 'Roboto Slab', serif;
+    font-size: 3em;
     margin-bottom:  30px;
 }
 
@@ -29,34 +32,29 @@ h1{
 }
 
 .title-input {
-    align-items: center;
-    display: flex;
     height: 30px;
-    justify-content: space-between;
     width: 45%;
 }
 
 .body-input {
-    align-items: center;
-    display: flex;
     height: 30px;
-    justify-content: space-between;
+    margin: 15px auto;
     width: 45%;
 }
 
 .search-input {
+    border: 1px solid #d1d3d4;
     height: 30px;
-    margin-top: 50px;
+    margin-top: 2%;
     width: 45%;
 }
 
 .save-btn {
     background-color: #00a79d;
-    border: none;
     color: #fff;
-    font-size: 120%;
+    font-size: 1.2em;
     height: 30px;
-    width: 45.5%;
+    width: 45%;
 }
 
 .save-btn:hover {
@@ -66,8 +64,7 @@ h1{
 input {
     align-items: center;
     display: flex;
-    font-family: 'Open Sans', sans-serif;
-    font-size: 100%;
+    font-size: 1.2em;
     justify-content: space-between;
     margin: auto;
 }
@@ -87,9 +84,8 @@ input {
 
 .title-of-card{
     color: #6D6E71;
-    display: inline-block;
     font-family: 'Roboto Slab', serif;
-    font-size: 140%;
+    font-size: 1.2em;
 }
 
 h2 {
