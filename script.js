@@ -21,7 +21,7 @@ function createCard(event) {
   var newCard = new Card(titleInput, bodyInput, 'swill');
   createHTML(newCard.title, newCard.body, newCard.quality, newCard.id);
   clearInputs();
-  // storeIdea(newCard);
+  localStoreCard(newCard);
 };
 
 
@@ -53,23 +53,25 @@ function clearInputs() {
     $('.body-input').val('');
 };
 
-// };
 
-// $.each(localStorage, function(key) {
-//     var cardData = JSON.parse(this);
-//     numCards++;
-// //     $( ".bottom-box" ).prepend(newCard(key, cardData.title, cardData.body, cardData.quality));
-// });
 
-// var localStoreCard = function() {
-//     var cardString = JSON.stringify(cardObject());
-//     localStorage.setItem('card' + numCards  , cardString);
-// }
+
+function localStoreCard(cardObject) {
+    var cardString = JSON.stringify(cardObject);
+    localStorage.setItem(cardObject.id, cardString);
+};
+
 //     numCards++;
 //     $( ".bottom-box" ).prepend(newCard('card' + numCards, $('.title-input').val(), $('.body-input').val(), qualityVariable)); 
 //     localStoreCard();
 //     $('form')[0].reset();
-// };
+
+// $.each(localStorage, function(key) {
+//     var cardData = JSON.parse(this);
+//     numCards++;
+//     $( ".bottom-box" ).prepend(newCard(key, cardData.title, cardData.body, cardData.quality));
+
+
 
 // $(".bottom-box").on('click', function(event){
 //     var currentQuality = $($(event.target).siblings('p.quality').children()[0]).text().trim();
