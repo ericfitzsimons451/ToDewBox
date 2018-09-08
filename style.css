@@ -103,17 +103,17 @@ button {
     width: 20px;
 }
 
-.upvote {
-    background-image: url(./images/upvote.svg);
+.upvote-btn {
+    background-image: url(images/upvote.svg);
     display: inline-block;
 }
 
-.upvote:hover {
-    background-image: url(./images/upvote-hover.svg);
+.upvote-btn:hover {
+    background-image: url(images/upvote-hover.svg);
 }
 
-.downvote {
-    background-image: url(./images/downvote.svg);
+.downvote-btn {
+    background-image: url(images/downvote.svg);
     margin-right: 5px;
     display: inline-block;
 }
@@ -124,18 +124,18 @@ button {
     margin-bottom: 1%;
 }
 
-.downvote:hover {
+.downvote-btn:hover {
     background-image: url(./images/downvote-hover.svg);
 }
 
-.delete-button {
+.delete-btn {
     background-image: url(./images/delete.svg);
     position: absolute;
     right: 10px;
     top: 15px;
 }
 
-.delete-button:hover {
+.delete-btn:hover {
     background-image: url(./images/delete-hover.svg);
 }
 
