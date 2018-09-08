@@ -6,6 +6,8 @@ $('.save-btn').on('click', createCard);
 // $('.delete-btn').on('click', downVote);
  $('.save-btn').prop('disabled', true);
  
+$(document).ready(getFromStorage);
+
 function Card(title, body, quality) {
     this.title = title;
     this.body = body;
@@ -24,7 +26,6 @@ function createCard(event) {
   localStoreCard(newCard);
 };
 
-
 function createHTML(title , body , quality, id) {
     var newCard = 
              `<div class="card-container"  data-id=${id}> 
@@ -41,7 +42,6 @@ function createHTML(title , body , quality, id) {
   $('.save-btn').prop('disabled', true);
 };
 
-
 function enableSubmit(event) {
     if ($('.title-input').val() === "" || $('.body-input').val() === "") {
        $('.save-btn').prop('disabled', false);
@@ -49,30 +49,39 @@ function enableSubmit(event) {
 };  
 
 function clearInputs() {
-    $('.title-input').val('');
-    $('.body-input').val('');
+     $('form')[0].reset();
 };
-
-
-
 
 function localStoreCard(cardObject) {
     var cardString = JSON.stringify(cardObject);
     localStorage.setItem(cardObject.id, cardString);
 };
 
-//     numCards++;
-//     $( ".bottom-box" ).prepend(newCard('card' + numCards, $('.title-input').val(), $('.body-input').val(), qualityVariable)); 
-//     localStoreCard();
-//     $('form')[0].reset();
+function getFromStorage() {
+  for (i = 0; i < localStorage.length; i++) {
+    var cardData = localStorage.getItem(localStorage.key(i));
+    var parsedNewCard = JSON.parse(cardData);
+    createHTML(parsedNewCard.title, parsedNewCard.body, parsedNewCard.quality, parsedNewCard.id)
+  }
+}
+
+
 
 // $.each(localStorage, function(key) {
-//     var cardData = JSON.parse(this);
-//     numCards++;
-//     $( ".bottom-box" ).prepend(newCard(key, cardData.title, cardData.body, cardData.quality));
+
+//     var cardData = JSON.parse(localStorage.getItem());
+//     createHTML(cardData);
+//     // createHTML(newCard.key(i));
+//   })
+    // $( ".bottom-box" ).prepend(newCard.key());
 
 
-
+// $.each(localStorage.length, function(key) {
+//     var cardData = localStorage.getItem()
+//     JSON.parse(this);
+//     localStorage.getItem(localStorage.length, cardData)
+//     console.log('hi');
+// })
 // $(".bottom-box").on('click', function(event){
 //     var currentQuality = $($(event.target).siblings('p.quality').children()[0]).text().trim();
 //     var qualityVariable;
