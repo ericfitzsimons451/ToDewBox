@@ -1,9 +1,9 @@
 $('.title-input').on('keyup', enableSubmit);
 $('.body-input').on('keyup', enableSubmit);
 $('.save-btn').on('click', createCard);
-// $('.delete-btn').on('click', deleteIdea);
+$('.bottom-box').on('click', deleteIdea);
 // $('.upvote-btn').on('click', upVote);
-// $('.delete-btn').on('click', downVote);
+// $('.downvote-btn').on('click', downVote);
  $('.save-btn').prop('disabled', true);
  
 $(document).ready(getFromStorage);
@@ -61,53 +61,65 @@ function getFromStorage() {
   for (i = 0; i < localStorage.length; i++) {
     var cardData = localStorage.getItem(localStorage.key(i));
     var parsedNewCard = JSON.parse(cardData);
-    createHTML(parsedNewCard.title, parsedNewCard.body, parsedNewCard.quality, parsedNewCard.id)
+    createHTML(parsedNewCard.title, parsedNewCard.body, 
+      parsedNewCard.quality, parsedNewCard.id)
   }
 }
 
+function deleteIdea(event) {
+  if (event.target.className === 'delete-btn');
+    $(event.target).parent().remove();
+    var id = $(event.target).parents('.card-container').data('id');
+    localStorage.removeItem(id);
+   
+}
+  
 
 
-// $.each(localStorage, function(key) {
 
-//     var cardData = JSON.parse(localStorage.getItem());
-//     createHTML(cardData);
-//     // createHTML(newCard.key(i));
-//   })
-    // $( ".bottom-box" ).prepend(newCard.key());
+// else if (event.target.className === "delete-btn") {
 
 
-// $.each(localStorage.length, function(key) {
-//     var cardData = localStorage.getItem()
-//     JSON.parse(this);
-//     localStorage.getItem(localStorage.length, cardData)
-//     console.log('hi');
-// })
+  //       var cardHTML = $(event.target).closest('.delete-btn').remove();
+  //       var cardHTMLId = cardHTML[0].id;
+  //       localStorage.removeItem(cardHTMLId);
+
+  // $(event.target).closest('.card-container').remove();
+  //       var cardHTMLId = cardHTML[0].id;
+  //       localStorage.removeItem(cardHTMLId);
+
+// else if (event.target.className === "delete-btn") {
+//         var cardHTML = $(event.target).closest('.card-container').remove();
+//         var cardHTMLId = cardHTML[0].id;
+//         localStorage.removeItem(cardHTMLId);
+//     }
+
 // $(".bottom-box").on('click', function(event){
 //     var currentQuality = $($(event.target).siblings('p.quality').children()[0]).text().trim();
 //     var qualityVariable;
 
-//     if (event.target.className === "upvote" || event.target.className === "downvote"){
+//     if (event.target.className === "upvote-btn" || event.target.className === "downvote-btn"){
 
-//         if (event.target.className === "upvote" && currentQuality === "plausible"){
+//         if (event.target.className === "upvote-btn" && currentQuality === "plausible"){
 //             qualityVariable = "genius";
 //             $($(event.target).siblings('p.quality').children()[0]).text(qualityVariable);
                
-//         } else if (event.target.className === "upvote" && currentQuality === "swill") {
+//         } else if (event.target.className === "upvote-btn" && currentQuality === "swill") {
 //             qualityVariable = "plausible";
 //             $($(event.target).siblings('p.quality').children()[0]).text(qualityVariable);
                
-//         } else if (event.target.className === "downvote" && currentQuality === "plausible") {
+//         } else if (event.target.className === "downvote-btn" && currentQuality === "plausible") {
 //             qualityVariable = "swill"
 //             $($(event.target).siblings('p.quality').children()[0]).text(qualityVariable);
 
-//         } else if (event.target.className === "downvote" && currentQuality === "genius") {
+//         } else if (event.target.className === "downvote-btn" && currentQuality === "genius") {
 //             qualityVariable = "plausible"
 //             $($(event.target).siblings('p.quality').children()[0]).text(qualityVariable);
 
-//         } else if (event.target.className === "downvote" && currentQuality === "swill") {
+//         } else if (event.target.className === "downvote-btn" && currentQuality === "swill") {
 //             qualityVariable = "swill";
         
-//         } else if (event.target.className === "upvote" && currentQuality === "genius") {
+//         } else if (event.target.className === "upvote-btn" && currentQuality === "genius") {
 //             qualityVariable = "genius";
 //         }
 
@@ -122,11 +134,7 @@ function getFromStorage() {
 //     localStorage.setItem(cardHTMLId, newCardJSON);
 //     }
    
-//     else if (event.target.className === "delete-button") {
-//         var cardHTML = $(event.target).closest('.card-container').remove();
-//         var cardHTMLId = cardHTML[0].id;
-//         localStorage.removeItem(cardHTMLId);
-//     }
+    
 // });
       
 
