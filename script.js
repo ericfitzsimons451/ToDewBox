@@ -65,14 +65,15 @@ function localStoreCard(cardObject) {
 function getFromStorage() {
   for (i = 0; i < localStorage.length; i++) {
     var cardData = localStorage.getItem(localStorage.key(i));
-    if (cardData === 'null') { 
-      return 
     }; 
     var parsedNewCard = JSON.parse(cardData);
+    console.log(parsedNewCard);
+    if (parsedNewCard.complete === false) {
     createHTML(parsedNewCard.title, parsedNewCard.body, 
       parsedNewCard.quality, parsedNewCard.id)
+    } 
   };
-};
+
 
 function deleteIdea(event) {
   if (event.target.className === 'delete-btn') {

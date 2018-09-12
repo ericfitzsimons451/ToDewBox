@@ -152,7 +152,7 @@ button {
     margin: auto;
     position: relative;
     width: 45%;
-    background-color: blue;
+    background-color: #d2d4d8;
 }
 
 @media(max-width: 640px){
