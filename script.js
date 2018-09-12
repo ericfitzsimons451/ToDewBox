@@ -6,6 +6,8 @@ $('.bottom-box').on('click', upVote);
 $('.bottom-box').on('click', downVote);
 $('.save-btn').prop('disabled', true);
 $('.bottom-box').on('keyup', keyUpDelegator);
+$('.bottom-box').on('click', '.card-container', changeToCompleted);
+
  
 $(document).ready(getFromStorage);
 
@@ -14,6 +16,7 @@ function Card(title, body, quality) {
     this.body = body;
     this.quality = quality;
     this.id = Date.now();
+    this.complete = false;
 };
 
 function createCard(event) {
@@ -35,7 +38,8 @@ function createHTML(title, body, quality, id) {
             <p class="quality">
             <button class="upvote-btn"></button>
             <button class="downvote-btn"></button>
-            quality: <span class="quality-variable">${quality}</span></p>
+            quality: <span class="quality-variable">${quality}
+            </span><button class='to-be-completed'>Completed</button></p>
             <hr>
             </div>`
   $('.bottom-box').prepend(newCard);
@@ -61,14 +65,15 @@ function localStoreCard(cardObject) {
 function getFromStorage() {
   for (i = 0; i < localStorage.length; i++) {
     var cardData = localStorage.getItem(localStorage.key(i));
-    if (cardData === 'null') { 
-      return 
     }; 
     var parsedNewCard = JSON.parse(cardData);
+    console.log(parsedNewCard);
+    if (parsedNewCard.complete === false) {
     createHTML(parsedNewCard.title, parsedNewCard.body, 
       parsedNewCard.quality, parsedNewCard.id)
+    } 
   };
-};
+
 
 function deleteIdea(event) {
   if (event.target.className === 'delete-btn') {
@@ -140,6 +145,48 @@ $(".filter-input").on("keyup", function() {
     $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
   });
 });
+
+// function changeToCompleted(e) {
+//   if (event.target.classList.contains('to-be-completed') {
+//     event.target.classList.toggle('completed')
+//   })
+// }
+
+
+
+// {
+//   if (event.target.classList.contains('.to-be-completed') {
+//     event.target.classList.toggle('completed');
+//   });
+// }
+
+
+function changeToCompleted(e) {
+  var completedCard = JSON.parse(localStorage.getItem($(e.target).parents('.card-container').data('id')));
+  completedCard.complete = !completedCard.complete;
+  localStorage.setItem($(e.target).parents('.card-container').attr('data-id'), JSON.stringify(completedCard));
+  $(this).closest('.card-container').toggleClass('completed');
+}
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
