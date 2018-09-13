@@ -151,6 +151,10 @@ button {
     height: 25px;
 }
 
+.to-be-completed:hover {
+    background-color: #045e55;
+}
+
 .completed {
     margin: auto;
     position: relative;
@@ -161,11 +165,21 @@ button {
 @media(max-width: 640px){
 
     .card-container {
-        width: 85%;
+        width: 15rem;
     }
 
-    .search-input {
-        border: solid #999 1px;
+    .title-input, .body-input, .save-btn, .filter-input {
+        font-size: 1em;
+        width: 15rem;
     }
-}
+
+    .quality {
+        margin-bottom: 35px;
+    }
+
+    .to-be-completed {
+        left: 1px; 
+        margin-top: 10px;
+        top: 90px;
+    }
 

@@ -44,7 +44,7 @@ function createHTML(title, body, quality, id) {
             <button class="upvote-btn"></button>
             <button class="downvote-btn"></button>
             quality: <span class="quality-variable">${qualityString}
-            </span><button class='to-be-completed'>Completed</button></p>
+            </span><button class='to-be-completed'>completed</button></p>
             <hr>
             </div>`
   $('.bottom-box').prepend(newCard);
@@ -79,12 +79,10 @@ function getFromStorage() {
   };
 
 function deleteIdea(event) {
-  // if (event.target.className === 'delete-btn') {
     var id = $(event.target).parents('.card-container').data('id');
     $(event.target).parent().remove();
     localStorage.removeItem(id);
  }; 
-// }; 
 
 function upVote(event) {
     var localStoreCard = JSON.parse(localStorage.getItem($(event.target).parents('.card-container').attr('data-id')));
@@ -105,7 +103,7 @@ function changeVoteUp(target, quality) {
 };
 
 function downVote(event) {
-  var localStoreCard = JSON.parse(localStorage.getItem($(event.target).parents('.card-container').attr('data-id')));
+   var localStoreCard = JSON.parse(localStorage.getItem($(event.target).parents('.card-container').attr('data-id')));
    var origQuality = localStoreCard.quality; 
     localStoreCard.quality = changeVoteDown(event.target, origQuality);
     localStorage.setItem($(event.target).parents('.card-container').attr('data-id'), JSON.stringify(localStoreCard));
@@ -131,29 +129,29 @@ function keyUpDelegator(event) {
 };
 
 function editContentTitle(event) {
-  var updateEdit = JSON.parse(localStorage.getItem($(event.target).parents('.card-container').data('id')));
-  updateEdit.title = event.target.innerText;
-  localStorage.setItem($(event.target).parents('.card-container').data('id'), JSON.stringify(updateEdit));
+    var updateEdit = JSON.parse(localStorage.getItem($(event.target).parents('.card-container').data('id')));
+    updateEdit.title = event.target.innerText;
+    localStorage.setItem($(event.target).parents('.card-container').data('id'), JSON.stringify(updateEdit));
 }; 
 
 function editContentBody(event) {
-  var updateEdit = JSON.parse(localStorage.getItem($(event.target).parents('.card-container').data('id')));
-  updateEdit.body = event.target.innerText;
-  localStorage.setItem($(event.target).parents('.card-container').data('id'), JSON.stringify(updateEdit));
+    var updateEdit = JSON.parse(localStorage.getItem($(event.target).parents('.card-container').data('id')));
+    updateEdit.body = event.target.innerText;
+    localStorage.setItem($(event.target).parents('.card-container').data('id'), JSON.stringify(updateEdit));
 }; 
 
 $(".filter-input").on("keyup", function() {
-  var value = $(this).val().toLowerCase();
-  $(".card-container").filter(function() {
+    var value = $(this).val().toLowerCase();
+    $(".card-container").filter(function() {
     $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
   });
 });
 
-function changeToCompleted(e) {
-  var completedCard = JSON.parse(localStorage.getItem($(e.target).parents('.card-container').data('id')));
-  completedCard.complete = !completedCard.complete;
-  localStorage.setItem($(e.target).parents('.card-container').attr('data-id'), JSON.stringify(completedCard));
-  $(this).closest('.card-container').toggleClass('completed');
+function changeToCompleted(event) {
+    var completedCard = JSON.parse(localStorage.getItem($(event.target).parents('.card-container').data('id')));
+    completedCard.complete = !completedCard.complete;
+    localStorage.setItem($(event.target).parents('.card-container').attr('data-id'), JSON.stringify(completedCard));
+    $(this).closest('.card-container').toggleClass('completed');
 };
 
 
