@@ -24,12 +24,18 @@ function createCard(event) {
   enableSubmit();
   var titleInput = $('.title-input').val();
   var bodyInput = $('.body-input').val();
-  var newCard = new Card(titleInput, bodyInput, 'swill');
+  var newCard = new Card(titleInput, bodyInput, 2);
   createHTML(newCard.title, newCard.body, newCard.quality, newCard.id);
   localStoreCard(newCard);
 };
 
+function findQuality(index) {
+  var qualityArray = ['none', 'low', 'normal', 'high', 'critical'];
+  return qualityArray[index];
+}
+
 function createHTML(title, body, quality, id) {
+   var qualityString = findQuality(quality);
     var newCard = 
              `<div class="card-container"  data-id=${id}> 
             <h2 contenteditable="true" class="title-of-card">${title}</h2> 
@@ -38,7 +44,7 @@ function createHTML(title, body, quality, id) {
             <p class="quality">
             <button class="upvote-btn"></button>
             <button class="downvote-btn"></button>
-            quality: <span class="quality-variable">${quality}
+            quality: <span class="quality-variable">${qualityString}
             </span><button class='to-be-completed'>Completed</button></p>
             <hr>
             </div>`
@@ -86,37 +92,41 @@ function deleteIdea(event) {
 function upVote(event) {
   if (event.target.className === "upvote-btn") {
     var localStoreCard = JSON.parse(localStorage.getItem($(event.target).parents('.card-container').attr('data-id')));
-    localStoreCard.quality = changeVoteUp(event.target);
+    var origQuality = localStoreCard.quality;
+    localStoreCard.quality = changeVoteUp(event.target, origQuality);
     localStorage.setItem($(event.target).parents('.card-container').attr('data-id'), JSON.stringify(localStoreCard));
   };
 };
 
-function changeVoteUp(target) {
-  if ($(target).siblings('.quality-variable').text() === 'swill') {
-    $(target).siblings('.quality-variable').text('plausible');
-    return 'plausible';
+function changeVoteUp(target, quality) {
+  if (quality < 4) {
+      quality+=1;
+    $(target).siblings('.quality-variable').text(findQuality(quality));
+    return quality;
   } else {
-    $(target).siblings('.quality-variable').text('genius');
-    return 'genius';
+    $(target).siblings('.quality-variable').text(findQuality(4));
+    return 4;
   };
 };
 
 function downVote(event) {
     if (event.target.className === "downvote-btn") {
   var localStoreCard = JSON.parse(localStorage.getItem($(event.target).parents('.card-container').attr('data-id')));
-        localStoreCard.quality = changeVoteDown(event.target);
-      localStorage.setItem($(event.target).parents('.card-container').attr('data-id'), JSON.stringify(localStoreCard));
-      };
-};  
+   var origQuality = localStoreCard.quality; 
+    localStoreCard.quality = changeVoteDown(event.target, origQuality);
+    localStorage.setItem($(event.target).parents('.card-container').attr('data-id'), JSON.stringify(localStoreCard));
+    };
+}; 
 
-function changeVoteDown(target) {
-  if ($(target).siblings('.quality-variable').text() === 'genius') {
-      $(target).siblings('.quality-variable').text('plausible');
-        return 'plausible';
-      } else {
-        $(target).siblings('.quality-variable').text('swill');
-        return 'swill';
-      };
+function changeVoteDown(target, quality) {
+  if (quality > 0) {
+      quality-=1;
+    $(target).siblings('.quality-variable').text(findQuality(quality));
+    return quality;
+  } else {
+    $(target).siblings('.quality-variable').text(findQuality(0));
+    return 0;
+  };
 };
 
 function keyUpDelegator(event) {
@@ -146,19 +156,7 @@ $(".filter-input").on("keyup", function() {
   });
 });
 
-// function changeToCompleted(e) {
-//   if (event.target.classList.contains('to-be-completed') {
-//     event.target.classList.toggle('completed')
-//   })
-// }
 
-
-
-// {
-//   if (event.target.classList.contains('.to-be-completed') {
-//     event.target.classList.toggle('completed');
-//   });
-// }
 
 
 function changeToCompleted(e) {
