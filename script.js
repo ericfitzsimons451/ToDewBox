@@ -11,11 +11,11 @@ $('.bottom-box').on('click', '.to-be-completed', changeToCompleted);
 $(document).ready(getFromStorage);
 
 function Card(title, body, quality) {
-    this.title = title;
-    this.body = body;
-    this.quality = quality;
-    this.id = Date.now();
-    this.complete = false;
+  this.title = title;
+  this.body = body;
+  this.quality = quality;
+  this.id = Date.now();
+  this.complete = false;
 };
 
 function createCard(event) {
@@ -34,39 +34,39 @@ function findQuality(index) {
 }
 
 function createHTML(title, body, quality, id) {
-   var qualityString = findQuality(quality);
-    var newCard = 
-             `<div class="card-container"  data-id=${id}> 
-            <h2 contenteditable="true" class="title-of-card">${title}</h2> 
-            <button class="delete-btn"></button>
-            <p contenteditable="true" class="body-of-card">${body}</p>
-            <p class="quality">
-            <button class="upvote-btn"></button>
-            <button class="downvote-btn"></button>
-            quality: <span class="quality-variable">${qualityString}
-            </span><button class='to-be-completed'>completed</button></p>
-            <hr>
-            </div>`
+  var qualityString = findQuality(quality);
+  var newCard = 
+           `<div class="card-container"  data-id=${id}> 
+          <h2 contenteditable="true" class="title-of-card">${title}</h2> 
+          <button class="delete-btn"></button>
+          <p contenteditable="true" class="body-of-card">${body}</p>
+          <p class="quality">
+          <button class="upvote-btn"></button>
+          <button class="downvote-btn"></button>
+          quality: <span class="quality-variable">${qualityString}
+          </span><button class='to-be-completed'>completed</button></p>
+          <hr>
+          </div>`
   $('.bottom-box').prepend(newCard);
   $('.save-btn').prop('disabled', true);
 };
 
 function enableSubmit(event) {
-    if ($('.title-input').val() === '' || $('.body-input').val() === '') {
-      $('.save-btn').prop('disabled', true);
+  if ($('.title-input').val() === '' || $('.body-input').val() === '') {
+    $('.save-btn').prop('disabled', true);
   } else {
-      $('.save-btn').prop('disabled', false);
+    $('.save-btn').prop('disabled', false);
   }
 };  
 
 function clearInputs() {
-     $('form')[0].reset();
+  $('form')[0].reset();
 };
 
 function localStoreCard(cardObject) {
-    var cardString = JSON.stringify(cardObject);
-    localStorage.setItem(cardObject.id, cardString);
-    clearInputs();
+  var cardString = JSON.stringify(cardObject);
+  localStorage.setItem(cardObject.id, cardString);
+  clearInputs();
 };
 
 function getFromStorage() {
@@ -77,21 +77,23 @@ function getFromStorage() {
     createHTML(parsedNewCard.title, parsedNewCard.body, 
       parsedNewCard.quality, parsedNewCard.id)
     }
-    };
   };
+};
 
 function deleteIdea(event) {
-    var id = $(event.target).parents('.card-container').data('id');
-    $(event.target).parent().remove();
-    localStorage.removeItem(id);
- }; 
+  var id = $(event.target).parents('.card-container').data('id');
+  $(event.target).parent().remove();
+  localStorage.removeItem(id);
+}; 
 
 function upVote(event) {
-    var localStoreCard = JSON.parse(localStorage.getItem($(event.target).parents('.card-container').attr('data-id')));
-    var origQuality = localStoreCard.quality;
-    localStoreCard.quality = changeVoteUp(event.target, origQuality);
-    localStorage.setItem($(event.target).parents('.card-container').attr('data-id'), JSON.stringify(localStoreCard));
-  };
+  var localStoreCard = JSON.parse(localStorage.getItem(
+    $(event.target).parents('.card-container').attr('data-id')));
+  var origQuality = localStoreCard.quality;
+  localStoreCard.quality = changeVoteUp(event.target, origQuality);
+  localStorage.setItem($(event.target).parents('.card-container').attr(
+    'data-id'), JSON.stringify(localStoreCard));
+};
 
 function changeVoteUp(target, quality) {
   if (quality < 4) {
@@ -105,15 +107,17 @@ function changeVoteUp(target, quality) {
 };
 
 function downVote(event) {
-   var localStoreCard = JSON.parse(localStorage.getItem($(event.target).parents('.card-container').attr('data-id')));
-   var origQuality = localStoreCard.quality; 
-    localStoreCard.quality = changeVoteDown(event.target, origQuality);
-    localStorage.setItem($(event.target).parents('.card-container').attr('data-id'), JSON.stringify(localStoreCard));
-    };
+  var localStoreCard = JSON.parse(localStorage.getItem(
+    $(event.target).parents('.card-container').attr('data-id')));
+  var origQuality = localStoreCard.quality; 
+  localStoreCard.quality = changeVoteDown(event.target, origQuality);
+  localStorage.setItem($(event.target).parents('.card-container').attr(
+    'data-id'), JSON.stringify(localStoreCard));
+};
 
 function changeVoteDown(target, quality) {
   if (quality > 0) {
-      quality-=1;
+    quality -= 1;
     $(target).siblings('.quality-variable').text(findQuality(quality));
     return quality;
   } else {
@@ -131,29 +135,35 @@ function keyUpDelegator(event) {
 };
 
 function editContentTitle(event) {
-    var updateEdit = JSON.parse(localStorage.getItem($(event.target).parents('.card-container').data('id')));
-    updateEdit.title = $(event.target).text();
-    localStorage.setItem($(event.target).parents('.card-container').data('id'), JSON.stringify(updateEdit));
+  var updateEdit = JSON.parse(localStorage.getItem(
+    $(event.target).parents('.card-container').data('id')));
+  updateEdit.title = $(event.target).text();
+  localStorage.setItem($(event.target).parents('.card-container').data(
+    'id'), JSON.stringify(updateEdit));
 }; 
 
 function editContentBody(event) {
-    var updateEdit = JSON.parse(localStorage.getItem($(event.target).parents('.card-container').data('id')));
-    updateEdit.body = $(event.target).text();
-    localStorage.setItem($(event.target).parents('.card-container').data('id'), JSON.stringify(updateEdit));
+  var updateEdit = JSON.parse(localStorage.getItem(
+    $(event.target).parents('.card-container').data('id')));
+  updateEdit.body = $(event.target).text();
+  localStorage.setItem($(event.target).parents('.card-container').data(
+    'id'), JSON.stringify(updateEdit));
 }; 
 
 $(".filter-input").on("keyup", function() {
-    var value = $(this).val().toLowerCase();
-    $(".card-container").filter(function() {
-    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+  var value = $(this).val().toLowerCase();
+  $(".card-container").filter(function() {
+  $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
   });
 });
 
 function changeToCompleted(event) {
-    var completedCard = JSON.parse(localStorage.getItem($(event.target).parents('.card-container').data('id')));
-    completedCard.complete = !completedCard.complete;
-    localStorage.setItem($(event.target).parents('.card-container').attr('data-id'), JSON.stringify(completedCard));
-    $(this).closest('.card-container').toggleClass('completed');
+  var completedCard = JSON.parse(localStorage.getItem(
+    $(event.target).parents('.card-container').data('id')));
+  completedCard.complete = !completedCard.complete;
+  localStorage.setItem($(event.target).parents('.card-container').attr(
+    'data-id'), JSON.stringify(completedCard));
+  $(this).closest('.card-container').toggleClass('completed');
 };
 
 
