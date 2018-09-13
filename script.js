@@ -1,14 +1,13 @@
 $('.title-input').on('keyup', enableSubmit);
 $('.body-input').on('keyup', enableSubmit);
 $('.save-btn').on('click', createCard);
-$('.bottom-box').on('click', deleteIdea);
-$('.bottom-box').on('click', upVote);
-$('.bottom-box').on('click', downVote);
 $('.save-btn').prop('disabled', true);
 $('.bottom-box').on('keyup', keyUpDelegator);
-$('.bottom-box').on('click', '.card-container', changeToCompleted);
+$('.bottom-box').on('click', '.delete-btn', deleteIdea);
+$('.bottom-box').on('click', '.upvote-btn', upVote);
+$('.bottom-box').on('click', '.downvote-btn', downVote);
+$('.bottom-box').on('click', '.to-be-completed', changeToCompleted);
 
- 
 $(document).ready(getFromStorage);
 
 function Card(title, body, quality) {
@@ -73,30 +72,26 @@ function getFromStorage() {
     var cardData = localStorage.getItem(localStorage.key(i));
     }; 
     var parsedNewCard = JSON.parse(cardData);
-    console.log(parsedNewCard);
     if (parsedNewCard.complete === false) {
     createHTML(parsedNewCard.title, parsedNewCard.body, 
       parsedNewCard.quality, parsedNewCard.id)
-    } 
+    };
   };
 
-
 function deleteIdea(event) {
-  if (event.target.className === 'delete-btn') {
+  // if (event.target.className === 'delete-btn') {
     var id = $(event.target).parents('.card-container').data('id');
     $(event.target).parent().remove();
     localStorage.removeItem(id);
  }; 
-}; 
+// }; 
 
 function upVote(event) {
-  if (event.target.className === "upvote-btn") {
     var localStoreCard = JSON.parse(localStorage.getItem($(event.target).parents('.card-container').attr('data-id')));
     var origQuality = localStoreCard.quality;
     localStoreCard.quality = changeVoteUp(event.target, origQuality);
     localStorage.setItem($(event.target).parents('.card-container').attr('data-id'), JSON.stringify(localStoreCard));
   };
-};
 
 function changeVoteUp(target, quality) {
   if (quality < 4) {
@@ -110,13 +105,11 @@ function changeVoteUp(target, quality) {
 };
 
 function downVote(event) {
-    if (event.target.className === "downvote-btn") {
   var localStoreCard = JSON.parse(localStorage.getItem($(event.target).parents('.card-container').attr('data-id')));
    var origQuality = localStoreCard.quality; 
     localStoreCard.quality = changeVoteDown(event.target, origQuality);
     localStorage.setItem($(event.target).parents('.card-container').attr('data-id'), JSON.stringify(localStoreCard));
     };
-}; 
 
 function changeVoteDown(target, quality) {
   if (quality > 0) {
@@ -156,16 +149,12 @@ $(".filter-input").on("keyup", function() {
   });
 });
 
-
-
-
 function changeToCompleted(e) {
   var completedCard = JSON.parse(localStorage.getItem($(e.target).parents('.card-container').data('id')));
   completedCard.complete = !completedCard.complete;
   localStorage.setItem($(e.target).parents('.card-container').attr('data-id'), JSON.stringify(completedCard));
   $(this).closest('.card-container').toggleClass('completed');
-}
-// }
+};
 
 
 
