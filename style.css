@@ -140,12 +140,15 @@ button {
 }
 
 .to-be-completed {
+    color: white;
     position: absolute;
     right: 10px;
-    top: 80px;
-    font-size: 1em;
+    top: 74px;
+    font-size: .9em;
+    padding: 4px 5px;
     background-color: #00a79d;
-    width: 90px;
+    width: 95px;
+    height: 25px;
 }
 
 .completed {
