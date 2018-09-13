@@ -70,11 +70,11 @@ function localStoreCard(cardObject) {
 function getFromStorage() {
   for (i = 0; i < localStorage.length; i++) {
     var cardData = localStorage.getItem(localStorage.key(i));
-    }; 
     var parsedNewCard = JSON.parse(cardData);
     if (parsedNewCard.complete === false) {
     createHTML(parsedNewCard.title, parsedNewCard.body, 
       parsedNewCard.quality, parsedNewCard.id)
+    }
     };
   };
 
