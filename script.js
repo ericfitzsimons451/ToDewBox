@@ -52,9 +52,11 @@ function createHTML(title, body, quality, id) {
 };
 
 function enableSubmit(event) {
-    if ($('.title-input').val() === "" || $('.body-input').val() === "") {
-       $('.save-btn').prop('disabled', false);
-  };
+    if ($('.title-input').val() === '' || $('.body-input').val() === '') {
+      $('.save-btn').prop('disabled', true);
+  } else {
+      $('.save-btn').prop('disabled', false);
+  }
 };  
 
 function clearInputs() {
@@ -130,13 +132,13 @@ function keyUpDelegator(event) {
 
 function editContentTitle(event) {
     var updateEdit = JSON.parse(localStorage.getItem($(event.target).parents('.card-container').data('id')));
-    updateEdit.title = event.target.innerText;
+    updateEdit.title = $(event.target).text();
     localStorage.setItem($(event.target).parents('.card-container').data('id'), JSON.stringify(updateEdit));
 }; 
 
 function editContentBody(event) {
     var updateEdit = JSON.parse(localStorage.getItem($(event.target).parents('.card-container').data('id')));
-    updateEdit.body = event.target.innerText;
+    updateEdit.body = $(event.target).text();
     localStorage.setItem($(event.target).parents('.card-container').data('id'), JSON.stringify(updateEdit));
 }; 
 
